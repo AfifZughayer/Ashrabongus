@@ -1,0 +1,48 @@
+[gd_scene load_steps=10 format=3 uid="uid://bqmohvxwwixp0"]
+
+[ext_resource type="PackedScene" uid="uid://ch871gf4ebxm3" path="res://scenes/player.tscn" id="1_ssoy0"]
+[ext_resource type="Texture2D" uid="uid://dco3ak0pg2fqk" path="res://src/main/resources/textures/autumn_field_puresky_2k.hdr" id="1_udi33"]
+[ext_resource type="PackedScene" uid="uid://dwxu64me4hlow" path="res://scenes/damageable.tscn" id="2_t7je4"]
+[ext_resource type="PackedScene" uid="uid://ybdq25kqi5rf" path="res://scenes/oldtown.blend" id="4_t7je4"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_3dokq"]
+panorama = ExtResource("1_udi33")
+
+[sub_resource type="Sky" id="Sky_a6a76"]
+sky_material = SubResource("PanoramaSkyMaterial_3dokq")
+
+[sub_resource type="Environment" id="Environment_3dokq"]
+background_mode = 2
+sky = SubResource("Sky_a6a76")
+tonemap_mode = 2
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xdb8t"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_w08q4"]
+
+[node name="oldtown" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_3dokq")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="Damageable" parent="." groups=["damageable"] instance=ExtResource("2_t7je4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.09294, 10.5219)
+
+[node name="CollisionShape3D" parent="Damageable" index="0"]
+shape = SubResource("BoxShape3D_xdb8t")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Damageable"]
+mesh = SubResource("BoxMesh_w08q4")
+skeleton = NodePath("")
+
+[node name="Player" parent="." instance=ExtResource("1_ssoy0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00702143, 1.36182, 0.0259354)
+
+[node name="oldtown" parent="." instance=ExtResource("4_t7je4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.260212, 0, 0.221442)
+
+[editable path="Damageable"]
