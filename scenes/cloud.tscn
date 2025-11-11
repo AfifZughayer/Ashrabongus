@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dsg48k6f25jqr"]
+
+[sub_resource type="FogMaterial" id="FogMaterial_dbin8"]
+density = 2.0
+emission = Color(0.903598, 0.903598, 0.903598, 1)
+edge_fade = 0.3
+
+[node name="FogVolume" type="FogVolume"]
+shape = 0
+material = SubResource("FogMaterial_dbin8")

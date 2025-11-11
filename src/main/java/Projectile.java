@@ -28,7 +28,7 @@ public class Projectile extends Area3D {
 
     @RegisterFunction
     public void _process(double delta){
-        if (timer >= 10){
+        if (timer >= 5){
             queueFree();
         }
         timer += delta;

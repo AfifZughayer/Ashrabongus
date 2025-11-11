@@ -4,9 +4,9 @@
 registeredName = Player
 fqName = Player
 relativeSourcePath = src/main/java/Player.java
-baseType = CharacterBody3D
+baseType = RigidBody3D
 supertypes = [
-	godot.api.CharacterBody3D,
+	godot.api.RigidBody3D,
 	godot.api.PhysicsBody3D,
 	godot.api.CollisionObject3D,
 	godot.api.Node3D,
@@ -25,7 +25,11 @@ properties = [
 	sens,
 	fire_rate,
 	timer,
-	cam,
+	throttle,
+	roll,
+	pitch,
+	yaw,
+	response,
 	projectile,
 	gun_pos
 ]
@@ -33,5 +37,6 @@ functions = [
 	_process,
 	_ready,
 	_input,
-	_physics_process
+	_physics_process,
+	shoot
 ]

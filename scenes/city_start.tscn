@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://fd4ftnil4bra"]
+
+[ext_resource type="Texture2D" uid="uid://dco3ak0pg2fqk" path="res://src/main/resources/textures/autumn_field_puresky_2k.hdr" id="1_41ni2"]
+[ext_resource type="PackedScene" uid="uid://ch871gf4ebxm3" path="res://scenes/player.tscn" id="2_dbin8"]
+[ext_resource type="Script" uid="uid://c5f40qy708io5" path="res://gdj/CloudGenerator.gdj" id="3_0sj3h"]
+[ext_resource type="PackedScene" uid="uid://dsg48k6f25jqr" path="res://scenes/cloud.tscn" id="4_peftp"]
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_dbin8"]
+panorama = ExtResource("1_41ni2")
+
+[sub_resource type="Sky" id="Sky_41ni2"]
+sky_material = SubResource("PanoramaSkyMaterial_dbin8")
+
+[sub_resource type="Environment" id="Environment_dbin8"]
+background_mode = 2
+sky = SubResource("Sky_41ni2")
+tonemap_mode = 2
+glow_enabled = true
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.0
+
+[node name="CityStart" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_dbin8")
+
+[node name="Player" parent="." instance=ExtResource("2_dbin8")]
+response = 0.1
+
+[node name="CloudGenerator" type="Node3D" parent="."]
+process_mode = 4
+script = ExtResource("3_0sj3h")
+cloud = ExtResource("4_peftp")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.3334, -9.08724)

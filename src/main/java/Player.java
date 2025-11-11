@@ -8,7 +8,7 @@ import godot.core.Vector3;
 import java.util.Random;
 
 @RegisterClass
-public class Player extends CharacterBody3D {
+public class Player extends RigidBody3D {
 
     @Export
     @RegisterProperty
@@ -22,8 +22,19 @@ public class Player extends CharacterBody3D {
     @RegisterProperty
     public float timer = 0;
 
+    @Export
     @RegisterProperty
-    public Camera3D cam;
+    public float throttle;
+    @RegisterProperty
+    public float roll;
+    @RegisterProperty
+    public float pitch;
+    @RegisterProperty
+    public float yaw;
+    @Export
+    @RegisterProperty
+    public float response = 0.5f;
+
     @Export
     @RegisterProperty
     public PackedScene projectile;
@@ -34,7 +45,6 @@ public class Player extends CharacterBody3D {
     @RegisterFunction
     public void _ready(){
         Input.setMouseMode(Input.MouseMode.CAPTURED);
-        cam = (Camera3D) getNode("Camera3D");
     }
 
     @RegisterFunction
@@ -46,14 +56,28 @@ public class Player extends CharacterBody3D {
         if (event.isActionReleased("Space")){
             speed = 5f;
         }
-        if (event instanceof InputEventMouseMotion mouseEvent){
-            rotateY((float) -mouseEvent.getRelative().getX() * sens);
-            cam.rotateX((float) mouseEvent.getRelative().getY() * sens);
-        }
+
     }
 
     @RegisterFunction
     public void _process(double delta) {
+        roll = Input.getAxis("left", "right");
+        pitch = Input.getAxis("up", "down");
+        yaw = Input.getAxis("yawLeft", "yawRight");
+
+        shoot(delta);
+    }
+
+    @RegisterFunction
+    public void _physics_process(double delta){
+        applyCentralForce(getBasis().getZ().times(throttle));
+        applyTorque(getBasis().getY().times(yaw * response));
+        applyTorque(getBasis().getX().times(pitch * response));
+        applyTorque(getBasis().getZ().times(roll * response));
+    }
+
+    @RegisterFunction
+    public void shoot(double delta){
         if (timer > 0){
             timer -= delta;
         }
@@ -64,15 +88,9 @@ public class Player extends CharacterBody3D {
             float mix = ((rand.nextFloat()*2)-1) * 0.05f;
             Vector3 pos = new Vector3(gunPos.getGlobalPosition().getX() + mix, gunPos.getGlobalPosition().getY() + mix, gunPos.getGlobalPosition().getZ() + mix);
             proj_instance.setGlobalPosition(pos);
-            proj_instance.setGlobalRotation(cam.getGlobalRotation());
+            proj_instance.setGlobalRotation(getGlobalRotation());
             timer = 1.0f / fireRate;
         }
-    }
-
-    @RegisterFunction
-    public void _physics_process(double delta){
-        setVelocity(cam.getGlobalBasis().getZ().times(-speed));
-        moveAndSlide();
     }
 
 }
