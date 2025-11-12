@@ -6,7 +6,7 @@ fqName = com.example.game.Simple
 relativeSourcePath = src/main/kotlin/com/example/game/Simple.kt
 baseType = Node3D
 supertypes = [
-	godot.api.Node3D,
+    godot.api.Node3D,
 	godot.api.Node,
 	godot.api.Object,
 	godot.core.KtObject,
@@ -15,11 +15,11 @@ supertypes = [
 	kotlin.Any
 ]
 signals = [
-	
+    
 ]
 properties = [
-	
+    
 ]
 functions = [
-	_ready
+    _ready
 ]

@@ -8,7 +8,7 @@ import godot.core.Vector3;
 import java.util.Random;
 
 @RegisterClass
-public class Player extends RigidBody3D {
+public class Player extends RigidBody3D implements MechanicShoot{
 
     @Export
     @RegisterProperty

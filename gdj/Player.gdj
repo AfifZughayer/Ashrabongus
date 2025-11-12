@@ -6,7 +6,8 @@ fqName = Player
 relativeSourcePath = src/main/java/Player.java
 baseType = RigidBody3D
 supertypes = [
-	godot.api.RigidBody3D,
+    godot.api.RigidBody3D,
+	MechanicShoot,
 	godot.api.PhysicsBody3D,
 	godot.api.CollisionObject3D,
 	godot.api.Node3D,
@@ -15,13 +16,14 @@ supertypes = [
 	godot.core.KtObject,
 	godot.common.interop.NativeWrapper,
 	godot.common.interop.NativePointer,
+	kotlin.Any,
 	kotlin.Any
 ]
 signals = [
-	
+    
 ]
 properties = [
-	speed,
+    speed,
 	sens,
 	fire_rate,
 	timer,
@@ -34,9 +36,9 @@ properties = [
 	gun_pos
 ]
 functions = [
-	_process,
+    _process,
 	_ready,
 	_input,
-	_physics_process,
-	shoot
+	shoot,
+	_physics_process
 ]
