@@ -1,4 +1,3 @@
-public interface MechanicShoot {
+public interface ShootComponent {
     public void shoot(double delta);
-
 }

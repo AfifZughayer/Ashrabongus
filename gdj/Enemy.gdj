@@ -6,8 +6,9 @@ fqName = Enemy
 relativeSourcePath = src/main/java/Enemy.java
 baseType = CharacterBody3D
 supertypes = [
-	godot.api.CharacterBody3D,
+    godot.api.CharacterBody3D,
 	HealthComponent,
+	ShootComponent,
 	godot.api.PhysicsBody3D,
 	godot.api.CollisionObject3D,
 	godot.api.Node3D,
@@ -20,10 +21,10 @@ supertypes = [
 	kotlin.Any
 ]
 signals = [
-	
+    
 ]
 properties = [
-	max_health,
+    max_health,
 	current_health,
 	model,
 	tween,
@@ -31,7 +32,7 @@ properties = [
 	dir
 ]
 functions = [
-	_physics_process,
+    _physics_process,
 	_ready,
 	take_damage,
 	on_death,

@@ -9,7 +9,7 @@ import godot.global.GD;
 import java.util.Random;
 
 @RegisterClass
-public class Player extends CharacterBody3D {
+public class Player extends CharacterBody3D implements ShootComponent {
 
     @Export
     @RegisterProperty
@@ -71,6 +71,7 @@ public class Player extends CharacterBody3D {
     }
 
     @RegisterFunction
+    @Override
     public void shoot(double delta){
         if (timer > 0){
             timer -= delta;

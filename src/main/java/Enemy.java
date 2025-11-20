@@ -8,7 +8,7 @@ import godot.api.Tween;
 import godot.core.Vector3;
 
 @RegisterClass
-public class Enemy extends CharacterBody3D implements HealthComponent {
+public class Enemy extends CharacterBody3D implements HealthComponent, ShootComponent{
 
     @RegisterProperty
     @Export
@@ -64,6 +64,11 @@ public class Enemy extends CharacterBody3D implements HealthComponent {
     @RegisterFunction
     @Override
     public void onDeath() {
+
+    }
+
+    @Override
+    public void shoot(double delta) {
 
     }
 }
