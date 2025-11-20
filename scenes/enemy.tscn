@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=3 uid="uid://gc67sfehsiox"]
+
+[ext_resource type="PackedScene" uid="uid://dlrfrj18nvic2" path="res://models/enemy_jet/nigga.glb" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://be3bdglh1u53c" path="res://gdj/Enemy.gdj" id="1_md0e3"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7p1mj"]
+size = Vector3(2.4101, 1.47461, 7.15791)
+
+[node name="Enemy" type="CharacterBody3D" node_paths=PackedStringArray("model")]
+script = ExtResource("1_md0e3")
+model = NodePath("model")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0624084, 0.237305, 0.447807)
+shape = SubResource("BoxShape3D_7p1mj")
+
+[node name="model" parent="." instance=ExtResource("1_7p1mj")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)

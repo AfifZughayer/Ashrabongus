@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bly11lep3il7b"]
+[gd_scene load_steps=10 format=3 uid="uid://bhuuj3f6ourgx"]
 
 [ext_resource type="PackedScene" uid="uid://ch871gf4ebxm3" path="res://scenes/player.tscn" id="1_bih7l"]
 [ext_resource type="Script" uid="uid://coxt45rya4ou0" path="res://scenes/fps.gd" id="1_rqxma"]
@@ -34,6 +34,7 @@ shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_bih7l")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.3956, 25, 0)
+speed = 50.0
 
 [node name="Area3D" type="Area3D" parent="."]
 script = ExtResource("4_oacpt")

@@ -4,36 +4,28 @@ import godot.annotation.RegisterFunction;
 import godot.annotation.RegisterProperty;
 import godot.api.*;
 import godot.core.Vector3;
+import godot.global.GD;
 
 import java.util.Random;
 
 @RegisterClass
-public class Player extends RigidBody3D {
+public class Player extends CharacterBody3D {
 
     @Export
     @RegisterProperty
     public float speed = 5f;
     @Export
     @RegisterProperty
-    public float sens = 0.005f;
-    @Export
-    @RegisterProperty
     public float fireRate = 1;
     @RegisterProperty
     public float timer = 0;
 
-    @Export
-    @RegisterProperty
-    public float throttle;
     @RegisterProperty
     public float roll;
     @RegisterProperty
     public float pitch;
     @RegisterProperty
-    public float yaw;
-    @Export
-    @RegisterProperty
-    public float response = 0.5f;
+    public Vector3 rot;
 
     @Export
     @RegisterProperty
@@ -41,6 +33,9 @@ public class Player extends RigidBody3D {
     @Export
     @RegisterProperty
     public Marker3D gunPos;
+    @Export
+    @RegisterProperty
+    public Node3D jet;
 
     @RegisterFunction
     public void _ready(){
@@ -50,30 +45,29 @@ public class Player extends RigidBody3D {
     @RegisterFunction
     public void _input(InputEvent event){
         assert event != null;
-        if (event.isActionPressed("Space")){
-            speed = 0f;
-        }
-        if (event.isActionReleased("Space")){
-            speed = 5f;
-        }
-
     }
 
     @RegisterFunction
     public void _process(double delta) {
         roll = Input.getAxis("left", "right");
         pitch = Input.getAxis("up", "down");
-        yaw = Input.getAxis("yawLeft", "yawRight");
+        rot = new Vector3(1, 1,45 * roll);
+        jet.setRotationDegrees(jet.getRotationDegrees().lerp(rot, 0.05));
 
         shoot(delta);
     }
 
     @RegisterFunction
-    public void _physics_process(double delta){
-        applyCentralForce(getBasis().getZ().times(throttle));
-        applyTorque(getBasis().getY().times(yaw * response));
-        applyTorque(getBasis().getX().times(pitch * response));
-        applyTorque(getBasis().getZ().times(roll * response));
+    public void _physicsProcess(double delta){
+//        applyCentralForce(getBasis().getZ().times(throttle));
+//        applyTorque(getBasis().getY().times(-yaw * sens * getMass()));
+//        applyTorque(getBasis().getX().times(pitch * sens * getMass()));
+//        applyTorque(getBasis().getZ().times(roll * sens * getMass()));
+        setVelocity(getBasis().getZ().times(speed));
+        moveAndSlide();
+        jet.rotateZ((float)Math.toRadians(roll));
+        rotateY(-(float)Math.toRadians(roll));
+        globalRotate(getBasis().getX(), (float)Math.toRadians(pitch));
     }
 
     @RegisterFunction
@@ -92,5 +86,4 @@ public class Player extends RigidBody3D {
             timer = 1.0f / fireRate;
         }
     }
-
 }

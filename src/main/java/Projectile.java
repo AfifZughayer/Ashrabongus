@@ -33,7 +33,7 @@ public class Projectile extends Area3D {
         }
         timer += delta;
 
-        Vector3 pos = getPosition().plus(getBasis().getZ().times(-speed * delta));
+        Vector3 pos = getPosition().plus(getBasis().getZ().times(speed * delta));
         setPosition(pos);
     }
 

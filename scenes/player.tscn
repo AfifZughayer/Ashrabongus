@@ -6,18 +6,21 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_onrkg"]
 
-[node name="Player" type="RigidBody3D" node_paths=PackedStringArray("gun_pos") groups=["entity"]]
-gravity_scale = 0.0
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("gun_pos", "jet") groups=["entity", "player"]]
 script = ExtResource("1_4flbx")
 fire_rate = 20.0
 projectile = ExtResource("2_g2els")
 gun_pos = NodePath("GattlingGun")
+jet = NodePath("Jet")
 
 [node name="GattlingGun" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.344634, 1.72971)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.665109, 2.07669)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_onrkg")
 
 [node name="Jet" parent="." instance=ExtResource("3_qhqgy")]
-transform = Transform3D(50, 0, -4.54747e-13, 0, 50, 0, 4.54747e-13, 0, 50, 0, -1, 0)
+transform = Transform3D(50, 0, 0, 0, 50, 0, 0, 0, 50, 0, -1, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Jet"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0.05, -0.15)
