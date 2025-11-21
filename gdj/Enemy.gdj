@@ -27,12 +27,18 @@ properties = [
     max_health,
 	current_health,
 	model,
-	tween,
 	player,
-	dir
+	gun_pos,
+	projectile,
+	tween,
+	dir,
+	timer,
+	fire_rate,
+	exit
 ]
 functions = [
-    _physics_process,
+    _process,
+	_physics_process,
 	_ready,
 	take_damage,
 	on_death,

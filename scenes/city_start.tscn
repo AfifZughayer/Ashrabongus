@@ -22,8 +22,10 @@ glow_enabled = true
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.0
 
-[node name="CityStart" type="Node3D"]
+[node name="CityStart" type="Node3D" node_paths=PackedStringArray("player", "enemy")]
 script = ExtResource("1_bntug")
+player = NodePath("Player")
+enemy = NodePath("Enemy")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -45,6 +47,6 @@ script = ExtResource("5_peftp")
 player = NodePath("../Player")
 
 [node name="Enemy" parent="." instance=ExtResource("6_fen7j")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 21.7996, 0, 50)
+transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 21.7996, 0, 75.2876)
 
 [editable path="Player"]

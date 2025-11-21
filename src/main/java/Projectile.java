@@ -21,8 +21,8 @@ public class Projectile extends Area3D {
 
     @RegisterFunction
     public void dealDamage(Area3D area) {
-        if (area.isInGroup("damageable")){
-            area.queueFree();
+        if (area instanceof HealthComponent){
+            ((HealthComponent) area).takeDamage(1);
         }
     }
 
