@@ -1,12 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://dww02m70j50ll"]
+[gd_scene load_steps=10 format=3 uid="uid://dww02m70j50ll"]
 
 [ext_resource type="Texture2D" uid="uid://dco3ak0pg2fqk" path="res://src/main/resources/textures/autumn_field_puresky_2k.hdr" id="1_41ni2"]
-[ext_resource type="Script" uid="uid://blwfs0idccnav" path="res://scenes/testing.gd" id="1_bntug"]
 [ext_resource type="PackedScene" uid="uid://ch871gf4ebxm3" path="res://scenes/player.tscn" id="2_dbin8"]
 [ext_resource type="Script" uid="uid://c5f40qy708io5" path="res://gdj/CloudGenerator.gdj" id="3_0sj3h"]
 [ext_resource type="PackedScene" uid="uid://dsg48k6f25jqr" path="res://scenes/cloud.tscn" id="4_peftp"]
-[ext_resource type="Script" uid="uid://blj4ul10x41ge" path="res://gdj/CameraFollow.gdj" id="5_peftp"]
-[ext_resource type="PackedScene" uid="uid://gc67sfehsiox" path="res://scenes/enemy.tscn" id="6_fen7j"]
+[ext_resource type="Script" uid="uid://bcc5xwx2b5wum" path="res://gdj/WaveSystem.gdj" id="6_fen7j"]
+[ext_resource type="PackedScene" uid="uid://gc67sfehsiox" path="res://scenes/city_enemy.tscn" id="7_bntug"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_dbin8"]
 panorama = ExtResource("1_41ni2")
@@ -22,10 +21,7 @@ glow_enabled = true
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.0
 
-[node name="CityStart" type="Node3D" node_paths=PackedStringArray("player", "enemy")]
-script = ExtResource("1_bntug")
-player = NodePath("Player")
-enemy = NodePath("Enemy")
+[node name="CityStart" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -35,18 +31,15 @@ shadow_enabled = true
 environment = SubResource("Environment_dbin8")
 
 [node name="Player" parent="." instance=ExtResource("2_dbin8")]
+speed = 0.0
 
 [node name="CloudGenerator" type="Node3D" parent="."]
 process_mode = 4
 script = ExtResource("3_0sj3h")
 cloud = ExtResource("4_peftp")
 
-[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("player")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 9)
-script = ExtResource("5_peftp")
-player = NodePath("../Player")
-
-[node name="Enemy" parent="." instance=ExtResource("6_fen7j")]
-transform = Transform3D(-1, 0, -1.50996e-07, 0, 1, 0, 1.50996e-07, 0, -1, 21.7996, 0, 75.2876)
+[node name="Wave" type="Node3D" parent="."]
+script = ExtResource("6_fen7j")
+enemy = ExtResource("7_bntug")
 
 [editable path="Player"]

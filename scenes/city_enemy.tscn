@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://gc67sfehsiox"]
+
+[ext_resource type="PackedScene" uid="uid://dlrfrj18nvic2" path="res://models/enemy_jet/nigga.glb" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://cojkf30tcu356" path="res://gdj/CityEnemy.gdj" id="1_md0e3"]
+[ext_resource type="PackedScene" uid="uid://dujfrs6eco3l6" path="res://scenes/projectile.tscn" id="2_4ra3w"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7p1mj"]
+size = Vector3(2.4101, 1.47461, 7.15791)
+
+[node name="CityEnemy" type="CharacterBody3D" node_paths=PackedStringArray("model", "gun_pos") groups=["enemy"]]
+script = ExtResource("1_md0e3")
+fire_rate = 20.0
+max_health = 20
+start_pos = Vector3(0, 100, 0)
+start_rot = Vector3(90, 0, 0)
+model = NodePath("model")
+gun_pos = NodePath("GunPos")
+projectile = ExtResource("2_4ra3w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0624084, 0.237305, 0.00964832)
+shape = SubResource("BoxShape3D_7p1mj")
+
+[node name="model" parent="." instance=ExtResource("1_7p1mj")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+
+[node name="GunPos" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0229245, 2.70256)

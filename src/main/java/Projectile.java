@@ -3,14 +3,18 @@ import godot.annotation.RegisterFunction;
 import godot.annotation.RegisterProperty;
 import godot.annotation.RegisterClass;
 import godot.api.Area3D;
+import godot.api.Node3D;
 import godot.core.*;
 
 @RegisterClass
-public class Projectile extends Area3D {
+public abstract class Projectile extends Area3D {
 
     @Export
     @RegisterProperty
-    public float dmg;
+    public int dmg;
+
+    @RegisterProperty
+    public String tag = "";
 
     @Export
     @RegisterProperty
@@ -20,21 +24,12 @@ public class Projectile extends Area3D {
     public float timer = 0;
 
     @RegisterFunction
-    public void dealDamage(Area3D area) {
-        if (area instanceof HealthComponent){
-            ((HealthComponent) area).takeDamage(1);
+    public void dealDamage(Node3D body) {
+        if (body instanceof HealthComponent && body.isInGroup(tag)){
+            ((HealthComponent) body).takeDamage(dmg);
         }
     }
 
-    @RegisterFunction
-    public void _process(double delta){
-        if (timer >= 5){
-            queueFree();
-        }
-        timer += delta;
-
-        Vector3 pos = getPosition().plus(getBasis().getZ().times(speed * delta));
-        setPosition(pos);
-    }
+    public abstract void move(double delta);
 
 }

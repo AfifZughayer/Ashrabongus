@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://c6seusynj6nh5"]
+
+[ext_resource type="Script" uid="uid://cojkf30tcu356" path="res://gdj/CityEnemy.gdj" id="1_7fmye"]
+[ext_resource type="PackedScene" uid="uid://dujfrs6eco3l6" path="res://scenes/projectile.tscn" id="2_hsg5q"]
+[ext_resource type="PackedScene" uid="uid://bk4uua2sl188" path="res://models/missile_jet/F-35.glb" id="3_chlyv"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7p1mj"]
+size = Vector3(2.4101, 1.47461, 7.15791)
+
+[node name="MissileEnemy" type="CharacterBody3D" node_paths=PackedStringArray("gun_pos") groups=["enemy"]]
+script = ExtResource("1_7fmye")
+fire_rate = 20.0
+max_health = 20
+start_pos = Vector3(0, 100, 0)
+start_rot = Vector3(90, 0, 0)
+gun_pos = NodePath("GunPos")
+projectile = ExtResource("2_hsg5q")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0624084, 0.237305, 0.00964832)
+shape = SubResource("BoxShape3D_7p1mj")
+
+[node name="GunPos" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0229245, 2.70256)
+
+[node name="F-35" parent="." instance=ExtResource("3_chlyv")]
+transform = Transform3D(-2.18557e-08, 0, -0.5, 0, 0.5, 0, 0.5, 0, -2.18557e-08, 0, 0, 0)

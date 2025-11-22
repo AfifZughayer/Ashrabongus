@@ -6,7 +6,7 @@ fqName = CloudGenerator
 relativeSourcePath = src/main/java/CloudGenerator.java
 baseType = Node3D
 supertypes = [
-    godot.api.Node3D,
+	godot.api.Node3D,
 	godot.api.Node,
 	godot.api.Object,
 	godot.core.KtObject,
@@ -15,14 +15,14 @@ supertypes = [
 	kotlin.Any
 ]
 signals = [
-    
+	
 ]
 properties = [
-    cloud,
+	cloud,
 	range,
 	count
 ]
 functions = [
-    _process,
+	_process,
 	create_clouds
 ]

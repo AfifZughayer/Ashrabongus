@@ -1,0 +1,50 @@
+// THIS FILE IS GENERATED! DO NOT EDIT OR DELETE IT. EDIT OR DELETE THE ASSOCIATED SOURCE CODE FILE INSTEAD
+// Note: You can however freely move this file inside your godot project if you want. Keep in mind however, that if you rename the originating source code file, this file will be deleted and regenerated as a new file instead of being updated! Other modifications to the source file however, will result in this file being updated.
+
+registeredName = CityEnemy
+fqName = CityEnemy
+relativeSourcePath = src/main/java/CityEnemy.java
+baseType = CharacterBody3D
+supertypes = [
+	Enemy,
+	godot.api.CharacterBody3D,
+	HealthComponent,
+	ShootComponent,
+	Observer,
+	godot.api.PhysicsBody3D,
+	godot.api.CollisionObject3D,
+	godot.api.Node3D,
+	godot.api.Node,
+	godot.api.Object,
+	godot.core.KtObject,
+	godot.common.interop.NativeWrapper,
+	godot.common.interop.NativePointer,
+	kotlin.Any,
+	kotlin.Any
+]
+signals = [
+	
+]
+properties = [
+	timer,
+	fire_rate,
+	max_health,
+	current_health,
+	start_pos,
+	start_rot,
+	model,
+	player,
+	gun_pos,
+	projectile,
+	tween,
+	exit
+]
+functions = [
+	_process,
+	_physics_process,
+	_ready,
+	take_damage,
+	on_death,
+	enter,
+	temp_delete
+]

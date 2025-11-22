@@ -1,2 +1,3 @@
-public class Boss extends Enemy{
+public abstract class Boss implements ShootComponent, HealthComponent{
+
 }

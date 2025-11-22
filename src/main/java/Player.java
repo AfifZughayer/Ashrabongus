@@ -4,7 +4,6 @@ import godot.annotation.RegisterFunction;
 import godot.annotation.RegisterProperty;
 import godot.api.*;
 import godot.core.Vector3;
-import godot.global.GD;
 
 import java.util.Random;
 
@@ -36,15 +35,23 @@ public class Player extends CharacterBody3D implements ShootComponent {
     @Export
     @RegisterProperty
     public Node3D jet;
+    @Export
+    @RegisterProperty
+    public Camera3D cam;
+    @RegisterProperty
+    public int camIndex = 0;
 
     @RegisterFunction
     public void _ready(){
         Input.setMouseMode(Input.MouseMode.CAPTURED);
+//        cam.setPosition(camPos.get(camIndex).getPosition());
     }
 
     @RegisterFunction
     public void _input(InputEvent event){
         assert event != null;
+//        if (event.isActionPressed("switchCam"))
+//            switchCam();
     }
 
     @RegisterFunction
@@ -52,7 +59,7 @@ public class Player extends CharacterBody3D implements ShootComponent {
         roll = Input.getAxis("left", "right");
         pitch = Input.getAxis("up", "down");
         rot = new Vector3(1, 1,45 * roll);
-        jet.setRotationDegrees(jet.getRotationDegrees().lerp(rot, 0.05));
+        jet.setRotationDegrees(jet.getRotationDegrees().lerp(rot, 0.025));
 
         shoot(delta);
     }
@@ -77,7 +84,8 @@ public class Player extends CharacterBody3D implements ShootComponent {
             timer -= delta;
         }
         if (Input.isActionPressed("Shoot") && timer <= 0) {
-            Node3D proj_instance = (Node3D) projectile.instantiate();
+            Projectile proj_instance = (Projectile) projectile.instantiate();
+            proj_instance.tag = "enemy";
             getTree().getCurrentScene().addChild(proj_instance);
             Random rand = new Random();
             float mix = ((rand.nextFloat()*2)-1) * 0.05f;
@@ -87,4 +95,10 @@ public class Player extends CharacterBody3D implements ShootComponent {
             timer = 1.0f / fireRate;
         }
     }
+
+//    public void switchCam(){
+//        camIndex += 1;
+//        camIndex %= camPos.size();
+//        cam.setPosition(camPos.get(camIndex).getPosition());
+//    }
 }

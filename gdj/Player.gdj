@@ -6,7 +6,7 @@ fqName = Player
 relativeSourcePath = src/main/java/Player.java
 baseType = CharacterBody3D
 supertypes = [
-    godot.api.CharacterBody3D,
+	godot.api.CharacterBody3D,
 	ShootComponent,
 	godot.api.PhysicsBody3D,
 	godot.api.CollisionObject3D,
@@ -20,10 +20,10 @@ supertypes = [
 	kotlin.Any
 ]
 signals = [
-    
+	
 ]
 properties = [
-    speed,
+	speed,
 	fire_rate,
 	timer,
 	roll,
@@ -31,10 +31,12 @@ properties = [
 	rot,
 	projectile,
 	gun_pos,
-	jet
+	jet,
+	cam,
+	cam_index
 ]
 functions = [
-    _process,
+	_process,
 	_physics_process,
 	_ready,
 	_input,

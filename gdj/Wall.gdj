@@ -6,7 +6,7 @@ fqName = Wall
 relativeSourcePath = src/main/java/Wall.java
 baseType = Area3D
 supertypes = [
-    godot.api.Area3D,
+	godot.api.Area3D,
 	godot.api.CollisionObject3D,
 	godot.api.Node3D,
 	godot.api.Node,
@@ -17,11 +17,11 @@ supertypes = [
 	kotlin.Any
 ]
 signals = [
-    
+	
 ]
 properties = [
-    
+	
 ]
 functions = [
-    deal_damage
+	deal_damage
 ]
