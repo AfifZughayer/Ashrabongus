@@ -1,11 +1,3 @@
-public class GodzillaLaserAttack implements Attack, Observer{
-    @Override
-    public void attack() {
+public class GodzillaLaserAttack extends Attack{
 
-    }
-
-    @Override
-    public void update() {
-
-    }
 }

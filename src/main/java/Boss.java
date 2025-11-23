@@ -69,11 +69,11 @@ public abstract class Boss extends Node3D implements HealthComponent, Runnable, 
 
     @Override
     public void registerObserver(Observer o) {
-        ()
+        ((Attack) o).boss = this;
     }
 
     @Override
     public void removeObsever(Observer o) {
-
+        semaphore.release();
     }
 }
