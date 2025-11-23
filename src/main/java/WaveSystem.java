@@ -33,7 +33,6 @@ public class WaveSystem extends Node3D implements Runnable, Subject {
 
         while(true){
             callDeferred("create_enemy");
-            callDeferred("create_enemy2");
             try {
                 semaphore.acquire();
                 Thread.sleep(2000);
@@ -49,14 +48,6 @@ public class WaveSystem extends Node3D implements Runnable, Subject {
         Enemy enemy_instance = (Enemy) enemy.instantiate();
         enemy_instance.system = this;
         enemy_instance.setPosition(new Vector3(0, 0, 75));
-        registerObserver(enemy_instance);
-        getTree().getCurrentScene().addChild(enemy_instance);
-    }
-    @RegisterFunction
-    public void createEnemy2(){
-        Enemy enemy_instance = (Enemy) enemy.instantiate();
-        enemy_instance.system = this;
-        enemy_instance.setPosition(new Vector3(30, 0, 75));
         registerObserver(enemy_instance);
         getTree().getCurrentScene().addChild(enemy_instance);
     }

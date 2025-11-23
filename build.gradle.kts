@@ -4,6 +4,13 @@ plugins {
 
 repositories {
     mavenCentral()
+    flatDir {
+        dirs("libs")
+    }
+}
+
+dependencies {
+    implementation(files("libs/jssc-2.9.6.jar"))
 }
 
 kotlin {

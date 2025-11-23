@@ -8,6 +8,7 @@ baseType = CharacterBody3D
 supertypes = [
 	godot.api.CharacterBody3D,
 	ShootComponent,
+	HealthComponent,
 	godot.api.PhysicsBody3D,
 	godot.api.CollisionObject3D,
 	godot.api.Node3D,
@@ -23,6 +24,8 @@ signals = [
 	
 ]
 properties = [
+	max_health,
+	current_health,
 	speed,
 	fire_rate,
 	timer,

@@ -25,6 +25,5 @@ properties = [
 ]
 functions = [
 	_ready,
-	create_enemy,
-	create_enemy2
+	create_enemy
 ]

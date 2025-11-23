@@ -48,6 +48,7 @@ public abstract class Enemy extends CharacterBody3D implements HealthComponent, 
         model.setPosition(startPos);
         model.setRotationDegrees(startRot);
         player = (Player) getTree().getFirstNodeInGroup("player");
+        lookAt(player.getGlobalPosition(), Vector3.Companion.getUP(), true);
         enter();
     }
 
@@ -60,7 +61,7 @@ public abstract class Enemy extends CharacterBody3D implements HealthComponent, 
     @Override
     public void _physicsProcess(double delta) {
         if (exit) return;
-        lookAt(player.getPosition(), Vector3.Companion.getUP(), true);
+        lookAt(player.getGlobalPosition(), Vector3.Companion.getUP(), true);
         setVelocity(getBasis().getZ().times(10));
         moveAndSlide();
     }

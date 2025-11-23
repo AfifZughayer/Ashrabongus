@@ -2,10 +2,10 @@
 
 [ext_resource type="PackedScene" uid="uid://dlrfrj18nvic2" path="res://models/enemy_jet/nigga.glb" id="1_7p1mj"]
 [ext_resource type="Script" uid="uid://cojkf30tcu356" path="res://gdj/CityEnemy.gdj" id="1_md0e3"]
-[ext_resource type="PackedScene" uid="uid://dujfrs6eco3l6" path="res://scenes/projectile.tscn" id="2_4ra3w"]
+[ext_resource type="PackedScene" uid="uid://dujfrs6eco3l6" path="res://scenes/bullet.tscn" id="2_4ra3w"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7p1mj"]
-size = Vector3(2.4101, 1.47461, 7.15791)
+size = Vector3(4.6826, 1.47461, 7)
 
 [node name="CityEnemy" type="CharacterBody3D" node_paths=PackedStringArray("model", "gun_pos") groups=["enemy"]]
 script = ExtResource("1_md0e3")
@@ -25,4 +25,4 @@ shape = SubResource("BoxShape3D_7p1mj")
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
 
 [node name="GunPos" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0229245, 2.70256)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)

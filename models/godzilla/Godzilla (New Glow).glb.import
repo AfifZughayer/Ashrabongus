@@ -3,20 +3,20 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cvjvcucx8xv5s"
-path="res://.godot/imported/scene.gltf-c224670d5d260e313cb28a1ab65579f5.scn"
+uid="uid://beylshfolgf80"
+path="res://.godot/imported/Godzilla (New Glow).glb-f541c6cd7e143b86d531acfb75a6f11e.scn"
 
 [deps]
 
-source_file="res://models/missile/scene.gltf"
-dest_files=["res://.godot/imported/scene.gltf-c224670d5d260e313cb28a1ab65579f5.scn"]
+source_file="res://models/godzilla/Godzilla (New Glow).glb"
+dest_files=["res://.godot/imported/Godzilla (New Glow).glb-f541c6cd7e143b86d531acfb75a6f11e.scn"]
 
 [params]
 
 nodes/root_type=""
 nodes/root_name=""
 nodes/apply_root_scale=true
-nodes/root_scale=0.1
+nodes/root_scale=1.0
 nodes/import_as_skeleton_bones=false
 nodes/use_node_type_suffixes=true
 meshes/ensure_tangents=true

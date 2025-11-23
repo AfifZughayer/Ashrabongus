@@ -1,13 +1,14 @@
 [gd_scene load_steps=5 format=3 uid="uid://ch871gf4ebxm3"]
 
 [ext_resource type="Script" uid="uid://ceteilad77rgr" path="res://gdj/Player.gdj" id="1_4flbx"]
-[ext_resource type="PackedScene" uid="uid://dujfrs6eco3l6" path="res://scenes/projectile.tscn" id="2_g2els"]
+[ext_resource type="PackedScene" uid="uid://dujfrs6eco3l6" path="res://scenes/bullet.tscn" id="2_g2els"]
 [ext_resource type="PackedScene" uid="uid://ckc32jflwp4xg" path="res://models/jet/scene.gltf" id="3_qhqgy"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_onrkg"]
 
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("gun_pos", "jet", "cam") groups=["entity", "player"]]
 script = ExtResource("1_4flbx")
+max_health = 100
 fire_rate = 20.0
 projectile = ExtResource("2_g2els")
 gun_pos = NodePath("GattlingGun")
@@ -18,7 +19,7 @@ cam = NodePath("Camera3D")
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 1.5, -7.5)
 
 [node name="GattlingGun" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.152784, 2.07669)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.152784, 3.75014)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_onrkg")

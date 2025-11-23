@@ -46,8 +46,8 @@ public class CityEnemy extends Enemy {
         tween.setParallel(true);
         tween.setTrans(Tween.TransitionType.QUART);
         tween.setEase(Tween.EaseType.OUT);
-        tween.tweenProperty(model, "position", new Vector3(0, 50, 0), 2);
-        tween.tweenProperty(model, "rotation_degrees", new Vector3(-90, 0, 0), 0.5);
+        tween.tweenProperty(model, "position", startPos, 2);
+        tween.tweenProperty(model, "rotation_degrees", startRot, 0.5);
     }
 
     @Override

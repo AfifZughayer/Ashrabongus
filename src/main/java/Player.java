@@ -4,12 +4,18 @@ import godot.annotation.RegisterFunction;
 import godot.annotation.RegisterProperty;
 import godot.api.*;
 import godot.core.Vector3;
+import godot.global.GD;
 
 import java.util.Random;
 
 @RegisterClass
-public class Player extends CharacterBody3D implements ShootComponent {
+public class Player extends CharacterBody3D implements ShootComponent, HealthComponent {
 
+    @Export
+    @RegisterProperty
+    public int maxHealth;
+    @RegisterProperty
+    public int currentHealth = maxHealth;
     @Export
     @RegisterProperty
     public float speed = 5f;
@@ -41,6 +47,8 @@ public class Player extends CharacterBody3D implements ShootComponent {
     @RegisterProperty
     public int camIndex = 0;
 
+    SerialPortHandle sph = new SerialPortHandle("COM30");
+
     @RegisterFunction
     public void _ready(){
         Input.setMouseMode(Input.MouseMode.CAPTURED);
@@ -56,9 +64,9 @@ public class Player extends CharacterBody3D implements ShootComponent {
 
     @RegisterFunction
     public void _process(double delta) {
-        roll = Input.getAxis("left", "right");
-        pitch = Input.getAxis("up", "down");
-        rot = new Vector3(1, 1,45 * roll);
+        keyboard();
+        //wireless();
+        rot = new Vector3(10 * pitch, 1,45 * roll);
         jet.setRotationDegrees(jet.getRotationDegrees().lerp(rot, 0.025));
 
         shoot(delta);
@@ -94,6 +102,49 @@ public class Player extends CharacterBody3D implements ShootComponent {
             proj_instance.setGlobalRotation(getGlobalRotation());
             timer = 1.0f / fireRate;
         }
+    }
+
+    public void keyboard(){
+        roll = Input.getAxis("left", "right");
+        pitch = Input.getAxis("up", "down");
+    }
+    public void wireless(){
+        String msg = sph.readLine();
+        if (msg.isEmpty())
+            return;
+        String cleanMsg = msg.trim();
+        String[] inputs = cleanMsg.split("\\s+");
+
+        try {
+            float rollInput = Integer.parseInt(inputs[0]) - 230;
+            rollInput /= 620;
+            rollInput *= 2;
+            rollInput -= 1;
+            roll = rollInput;
+        } catch (NumberFormatException ignored){
+
+        }
+
+        try {
+            float pitchInput = Integer.parseInt(inputs[1]) - 350;
+            pitchInput /= 330;
+            pitchInput *= 2;
+            pitchInput -= 1;
+            pitch = pitchInput;
+        } catch (NumberFormatException ignored) {
+        }
+    }
+
+    @Override
+    public void takeDamage(int amount) {
+        currentHealth -= amount;
+        if (currentHealth <= 0)
+            onDeath();
+    }
+
+    @Override
+    public void onDeath() {
+        getTree().reloadCurrentScene();
     }
 
 //    public void switchCam(){

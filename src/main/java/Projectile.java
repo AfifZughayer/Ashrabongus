@@ -20,6 +20,10 @@ public abstract class Projectile extends Area3D {
     @RegisterProperty
     public float speed = 5;
 
+    @Export
+    @RegisterProperty
+    public float destroyTime = 5;
+
     @RegisterProperty
     public float timer = 0;
 
@@ -28,6 +32,15 @@ public abstract class Projectile extends Area3D {
         if (body instanceof HealthComponent && body.isInGroup(tag)){
             ((HealthComponent) body).takeDamage(dmg);
         }
+    }
+
+    @RegisterFunction
+    public void _process(double delta){
+        if (timer >= destroyTime){
+            queueFree();
+        }
+        timer += delta;
+        move(delta);
     }
 
     public abstract void move(double delta);
