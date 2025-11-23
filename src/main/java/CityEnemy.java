@@ -3,7 +3,8 @@ import godot.annotation.RegisterClass;
 import godot.annotation.RegisterFunction;
 import godot.annotation.RegisterProperty;
 import godot.api.Tween;
-import godot.core.Vector3;
+import godot.core.*;
+import godot.global.GD;
 
 import java.util.Random;
 
@@ -20,13 +21,14 @@ public class CityEnemy extends Enemy {
     @Override
     public void _process(double delta){
         int distance = (int) Math.floor(getGlobalPosition().distanceTo(player.getGlobalPosition()));
-        if (distance <= 10) exit();
+        if (distance <= 10 && !exit) exit();
         if (distance <= 50 && distance > 10) shoot(delta);
     }
 
     @RegisterFunction
     @Override
     public void enter(){
+        exit = false;
         if (tween != null)
             tween.kill();
         tween = createTween();
@@ -43,6 +45,7 @@ public class CityEnemy extends Enemy {
         if (tween != null)
             tween.kill();
         tween = createTween();
+        tween.getFinished().connect(Callable.create(this, StringNames.toGodotName("onExitFinish")), 0);
         tween.setParallel(true);
         tween.setTrans(Tween.TransitionType.QUART);
         tween.setEase(Tween.EaseType.OUT);
@@ -50,9 +53,12 @@ public class CityEnemy extends Enemy {
         tween.tweenProperty(model, "rotation_degrees", startModelRot, 0.5);
     }
 
+    @RegisterFunction
     @Override
     public void onExitFinish() {
-        if ()
+        if (!exit) return;
+        setPosition(startPos);
+        enter();
     }
 
     @Override

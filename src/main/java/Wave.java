@@ -9,14 +9,11 @@ import godot.core.Vector3;
 @RegisterClass
 public abstract class Wave extends Node {
 
-    @Export
-    @RegisterProperty
-    public PackedScene enemy;
     @RegisterProperty
     public WaveSystem system;
 
     @RegisterFunction
-    public void createEnemy(Vector3 pos){
+    public void createEnemy(PackedScene enemy, Vector3 pos){
         Enemy enemy_instance = (Enemy) enemy.instantiate();
         enemy_instance.system = system;
         enemy_instance.setPosition(pos);

@@ -31,6 +31,7 @@ public abstract class Projectile extends Area3D {
     public void dealDamage(Node3D body) {
         if (body instanceof HealthComponent && body.isInGroup(tag)){
             ((HealthComponent) body).takeDamage(dmg);
+            queueFree();
         }
     }
 

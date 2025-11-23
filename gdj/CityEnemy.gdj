@@ -30,8 +30,10 @@ properties = [
 	fire_rate,
 	max_health,
 	current_health,
+	speed,
+	start_model_pos,
+	start_model_rot,
 	start_pos,
-	start_rot,
 	model,
 	player,
 	gun_pos,
@@ -46,5 +48,5 @@ functions = [
 	take_damage,
 	on_death,
 	enter,
-	temp_delete
+	on_exit_finish
 ]

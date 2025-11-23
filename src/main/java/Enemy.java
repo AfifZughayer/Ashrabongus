@@ -14,7 +14,10 @@ public abstract class Enemy extends CharacterBody3D implements HealthComponent, 
     @Export
     public int maxHealth;
     @RegisterProperty
-    public int currentHealth = maxHealth;
+    public int currentHealth;
+    @Export
+    @RegisterProperty
+    public int speed = 20;
 
     @RegisterProperty
     @Export
@@ -23,7 +26,7 @@ public abstract class Enemy extends CharacterBody3D implements HealthComponent, 
     @Export
     public Vector3 startModelRot = Vector3.Companion.getZERO();;
     @RegisterProperty
-    public Vector3 startPos;
+    public Vector3 startPos = Vector3.Companion.getZERO();
 
     @RegisterProperty
     @Export
@@ -47,6 +50,8 @@ public abstract class Enemy extends CharacterBody3D implements HealthComponent, 
     @RegisterFunction
     @Override
     public void _ready() {
+        currentHealth = maxHealth;
+        startPos = getPosition();
         model.setPosition(startModelPos);
         model.setRotationDegrees(startModelRot);
         player = (Player) getTree().getFirstNodeInGroup("player");
@@ -66,7 +71,7 @@ public abstract class Enemy extends CharacterBody3D implements HealthComponent, 
     public void _physicsProcess(double delta) {
         if (exit) return;
         lookAt(player.getGlobalPosition(), Vector3.Companion.getUP(), true);
-        setVelocity(getBasis().getZ().times(10));
+        setVelocity(getBasis().getZ().times(speed));
         moveAndSlide();
     }
 

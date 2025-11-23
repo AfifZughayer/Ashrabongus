@@ -15,7 +15,7 @@ public class Player extends CharacterBody3D implements ShootComponent, HealthCom
     @RegisterProperty
     public int maxHealth;
     @RegisterProperty
-    public int currentHealth = maxHealth;
+    public int currentHealth;
     @Export
     @RegisterProperty
     public float speed = 5f;
@@ -51,6 +51,7 @@ public class Player extends CharacterBody3D implements ShootComponent, HealthCom
 
     @RegisterFunction
     public void _ready(){
+        currentHealth = maxHealth;
         Input.setMouseMode(Input.MouseMode.CAPTURED);
 //        cam.setPosition(camPos.get(camIndex).getPosition());
     }

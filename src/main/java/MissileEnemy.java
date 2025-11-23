@@ -2,6 +2,9 @@ import godot.annotation.RegisterClass;
 import godot.annotation.RegisterFunction;
 import godot.annotation.RegisterProperty;
 import godot.api.Tween;
+import godot.core.Callable;
+import godot.core.StringName;
+import godot.core.StringNames;
 import godot.core.Vector3;
 
 @RegisterClass
@@ -40,11 +43,18 @@ public class MissileEnemy extends Enemy{
         if (tween != null)
             tween.kill();
         tween = createTween();
+        tween.getFinished().connect(Callable.create(this, StringNames.toGodotName("onExitFinish")), 0);
         tween.setParallel(true);
         tween.setTrans(Tween.TransitionType.QUART);
         tween.setEase(Tween.EaseType.OUT);
-        tween.tweenProperty(model, "position", startPos, 2);
-        tween.tweenProperty(model, "rotation_degrees", startRot, 0.5);
+        tween.tweenProperty(model, "position", startModelPos, 2);
+        tween.tweenProperty(model, "rotation_degrees", startModelRot, 0.5);
+    }
+
+    @RegisterFunction
+    @Override
+    public void onExitFinish() {
+        onDeath();
     }
 
     @Override

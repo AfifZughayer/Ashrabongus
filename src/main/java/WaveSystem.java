@@ -2,8 +2,10 @@ import godot.annotation.Export;
 import godot.annotation.RegisterClass;
 import godot.annotation.RegisterFunction;
 import godot.annotation.RegisterProperty;
+import godot.api.Node;
 import godot.api.Node3D;
 import godot.core.VariantArray;
+import godot.global.GD;
 
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
@@ -12,9 +14,8 @@ import java.util.concurrent.Semaphore;
 public class WaveSystem extends Node3D implements Runnable, Subject {
 
     public ArrayList<Enemy> currentEnemies = new ArrayList<>();
-    @Export
     @RegisterProperty
-    public VariantArray<Wave> waves;
+    public VariantArray<Node> waves = new VariantArray<>(Object.class);
     public int waveIndex = 0;
 
     public Thread t;
@@ -23,8 +24,9 @@ public class WaveSystem extends Node3D implements Runnable, Subject {
     @RegisterFunction
     @Override
     public void _ready(){
-        for (Wave w : waves){
-            w.system = this;
+        waves = getChildren();
+        for (Node w : waves){
+            ((Wave) w).system = this;
         }
         t = new Thread(this);
         t.start();
@@ -34,7 +36,7 @@ public class WaveSystem extends Node3D implements Runnable, Subject {
     @Override
     public void run() {
 
-        while(waveIndex >= waves.size()){
+        while(waveIndex < waves.size()){
             callDeferred("start_wave");
             try {
                 semaphore.acquire();
@@ -42,13 +44,14 @@ public class WaveSystem extends Node3D implements Runnable, Subject {
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
+            waveIndex += 1;
         }
 
     }
 
     @RegisterFunction
     public void startWave(){
-        waves.get(waveIndex).begin();
+        ((Wave)waves.get(waveIndex)).begin();
     }
 
     @Override

@@ -12,7 +12,7 @@ public class Missile extends Projectile implements HealthComponent{
     @RegisterProperty
     public int maxHealth;
     @RegisterProperty
-    public int currentHealth = maxHealth;
+    public int currentHealth;
 
     @RegisterProperty
     public Player player;
@@ -20,6 +20,7 @@ public class Missile extends Projectile implements HealthComponent{
     @RegisterFunction
     @Override
     public void _ready(){
+        currentHealth = maxHealth;
         player = (Player) getTree().getFirstNodeInGroup("player");
     }
 
@@ -28,6 +29,7 @@ public class Missile extends Projectile implements HealthComponent{
         lookAt(player.getGlobalPosition(), Vector3.Companion.getUP(), true);
         Vector3 pos = getPosition().plus(getBasis().getZ().times(speed * delta));
         setPosition(pos);
+        getRotationDegrees().setZ(getRotationDegrees().getZ() + 1);
     }
 
     @Override

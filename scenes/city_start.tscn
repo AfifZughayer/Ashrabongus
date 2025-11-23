@@ -1,10 +1,13 @@
-[gd_scene load_steps=9 format=3 uid="uid://dww02m70j50ll"]
+[gd_scene load_steps=12 format=3 uid="uid://dww02m70j50ll"]
 
 [ext_resource type="Texture2D" uid="uid://dco3ak0pg2fqk" path="res://src/main/resources/textures/autumn_field_puresky_2k.hdr" id="1_41ni2"]
 [ext_resource type="PackedScene" uid="uid://ch871gf4ebxm3" path="res://scenes/player.tscn" id="2_dbin8"]
-[ext_resource type="Script" uid="uid://c5f40qy708io5" path="res://gdj/CloudGenerator.gdj" id="3_0sj3h"]
-[ext_resource type="PackedScene" uid="uid://dsg48k6f25jqr" path="res://scenes/cloud.tscn" id="4_peftp"]
-[ext_resource type="PackedScene" uid="uid://c6seusynj6nh5" path="res://scenes/missile_enemy.tscn" id="7_lkh1s"]
+[ext_resource type="Script" uid="uid://bcc5xwx2b5wum" path="res://gdj/WaveSystem.gdj" id="3_0sj3h"]
+[ext_resource type="PackedScene" uid="uid://c6seusynj6nh5" path="res://scenes/missile_enemy.tscn" id="4_0sj3h"]
+[ext_resource type="Script" uid="uid://der43m8c7i2v2" path="res://gdj/CityWave1.gdj" id="4_peftp"]
+[ext_resource type="Script" uid="uid://uo2fpn024xhq" path="res://gdj/CityWave2.gdj" id="6_fen7j"]
+[ext_resource type="PackedScene" uid="uid://gc67sfehsiox" path="res://scenes/city_enemy.tscn" id="7_bntug"]
+[ext_resource type="Script" uid="uid://b60uct0xixos6" path="res://gdj/CityWave3.gdj" id="7_lkh1s"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_dbin8"]
 panorama = ExtResource("1_41ni2")
@@ -32,14 +35,19 @@ environment = SubResource("Environment_dbin8")
 [node name="Player" parent="." instance=ExtResource("2_dbin8")]
 speed = 0.0
 
-[node name="CloudGenerator" type="Node3D" parent="."]
-process_mode = 4
+[node name="WaveSystem" type="Node3D" parent="."]
 script = ExtResource("3_0sj3h")
-cloud = ExtResource("4_peftp")
 
-[node name="Wave" type="Node3D" parent="."]
+[node name="Wave1" type="Node" parent="WaveSystem"]
+script = ExtResource("4_peftp")
+enemy = ExtResource("7_bntug")
 
-[node name="MissileEnemy" parent="." instance=ExtResource("7_lkh1s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 51.1406)
+[node name="Wave2" type="Node" parent="WaveSystem"]
+script = ExtResource("6_fen7j")
+enemy = ExtResource("7_bntug")
+
+[node name="Wave3" type="Node" parent="WaveSystem"]
+script = ExtResource("7_lkh1s")
+enemy = ExtResource("4_0sj3h")
 
 [editable path="Player"]
