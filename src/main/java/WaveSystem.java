@@ -3,8 +3,7 @@ import godot.annotation.RegisterClass;
 import godot.annotation.RegisterFunction;
 import godot.annotation.RegisterProperty;
 import godot.api.Node3D;
-import godot.api.PackedScene;
-import godot.core.Vector3;
+import godot.core.VariantArray;
 
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;
@@ -13,16 +12,20 @@ import java.util.concurrent.Semaphore;
 public class WaveSystem extends Node3D implements Runnable, Subject {
 
     public ArrayList<Enemy> currentEnemies = new ArrayList<>();
-
     @Export
     @RegisterProperty
-    public PackedScene enemy;
+    public VariantArray<Wave> waves;
+    public int waveIndex = 0;
+
     public Thread t;
     public Semaphore semaphore = new Semaphore(0);
 
     @RegisterFunction
     @Override
     public void _ready(){
+        for (Wave w : waves){
+            w.system = this;
+        }
         t = new Thread(this);
         t.start();
     }
@@ -31,8 +34,8 @@ public class WaveSystem extends Node3D implements Runnable, Subject {
     @Override
     public void run() {
 
-        while(true){
-            callDeferred("create_enemy");
+        while(waveIndex >= waves.size()){
+            callDeferred("start_wave");
             try {
                 semaphore.acquire();
                 Thread.sleep(2000);
@@ -44,12 +47,8 @@ public class WaveSystem extends Node3D implements Runnable, Subject {
     }
 
     @RegisterFunction
-    public void createEnemy(){
-        Enemy enemy_instance = (Enemy) enemy.instantiate();
-        enemy_instance.system = this;
-        enemy_instance.setPosition(new Vector3(0, 0, 75));
-        registerObserver(enemy_instance);
-        getTree().getCurrentScene().addChild(enemy_instance);
+    public void startWave(){
+        waves.get(waveIndex).begin();
     }
 
     @Override

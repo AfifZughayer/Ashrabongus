@@ -10,7 +10,7 @@ height = 0.2
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_c8fcr"]
 height = 3.65227
-radius = 0.14502
+radius = 0.422852
 
 [node name="Bullet" type="Area3D"]
 script = ExtResource("1_y25gk")
@@ -29,4 +29,5 @@ shape = SubResource("CylinderShape3D_c8fcr")
 [node name="Sketchfab_Scene" parent="." instance=ExtResource("2_l5glv")]
 transform = Transform3D(1.05939, 1.51297, -3.54804, -3.27661, 2.29431, 4.88253e-08, 2.03507, 2.90639, 1.84699, -0.00774807, -0.0886154, -0.0995206)
 
+[connection signal="area_entered" from="." to="." method="area_deal_damage"]
 [connection signal="body_entered" from="." to="." method="deal_damage"]

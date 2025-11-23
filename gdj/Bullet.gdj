@@ -29,5 +29,6 @@ properties = [
 ]
 functions = [
 	_process,
-	deal_damage
+	deal_damage,
+	area_deal_damage
 ]

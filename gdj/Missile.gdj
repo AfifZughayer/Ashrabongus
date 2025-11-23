@@ -6,7 +6,8 @@ fqName = Missile
 relativeSourcePath = src/main/java/Missile.java
 baseType = Area3D
 supertypes = [
-    Projectile,
+	Projectile,
+	HealthComponent,
 	godot.api.Area3D,
 	godot.api.CollisionObject3D,
 	godot.api.Node3D,
@@ -15,13 +16,16 @@ supertypes = [
 	godot.core.KtObject,
 	godot.common.interop.NativeWrapper,
 	godot.common.interop.NativePointer,
+	kotlin.Any,
 	kotlin.Any
 ]
 signals = [
-    
+	
 ]
 properties = [
-    player,
+	max_health,
+	current_health,
+	player,
 	dmg,
 	tag,
 	speed,
@@ -29,7 +33,8 @@ properties = [
 	timer
 ]
 functions = [
-    _process,
+	_process,
 	_ready,
-	deal_damage
+	deal_damage,
+	area_deal_damage
 ]

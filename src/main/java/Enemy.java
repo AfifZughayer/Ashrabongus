@@ -18,10 +18,12 @@ public abstract class Enemy extends CharacterBody3D implements HealthComponent, 
 
     @RegisterProperty
     @Export
-    public Vector3 startPos = Vector3.Companion.getZERO();
+    public Vector3 startModelPos = Vector3.Companion.getZERO();
     @RegisterProperty
     @Export
-    public Vector3 startRot = Vector3.Companion.getZERO();;
+    public Vector3 startModelRot = Vector3.Companion.getZERO();;
+    @RegisterProperty
+    public Vector3 startPos;
 
     @RegisterProperty
     @Export
@@ -45,8 +47,8 @@ public abstract class Enemy extends CharacterBody3D implements HealthComponent, 
     @RegisterFunction
     @Override
     public void _ready() {
-        model.setPosition(startPos);
-        model.setRotationDegrees(startRot);
+        model.setPosition(startModelPos);
+        model.setRotationDegrees(startModelRot);
         player = (Player) getTree().getFirstNodeInGroup("player");
         lookAt(player.getGlobalPosition(), Vector3.Companion.getUP(), true);
         enter();
@@ -56,6 +58,8 @@ public abstract class Enemy extends CharacterBody3D implements HealthComponent, 
     public abstract void enter();
 
     public abstract void exit();
+
+    public abstract void onExitFinish();
 
     @RegisterFunction
     @Override
@@ -83,11 +87,8 @@ public abstract class Enemy extends CharacterBody3D implements HealthComponent, 
 
     @Override
     public void update() {
+        if (system == null) return;
         system.removeObsever(this);
     }
 
-    @RegisterFunction
-    public void tempDelete(){
-        queueFree();
-    }
 }

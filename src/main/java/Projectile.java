@@ -35,6 +35,13 @@ public abstract class Projectile extends Area3D {
     }
 
     @RegisterFunction
+    public void areaDealDamage(Area3D area){
+        if (area instanceof HealthComponent && area.isInGroup(tag)){
+            ((HealthComponent) area).takeDamage(dmg);
+        }
+    }
+
+    @RegisterFunction
     public void _process(double delta){
         if (timer >= destroyTime){
             queueFree();
