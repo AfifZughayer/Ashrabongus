@@ -5,11 +5,12 @@ import godot.annotation.RegisterProperty;
 import godot.api.Node;
 import godot.api.Node3D;
 import godot.core.VariantArray;
+import godot.global.GD;
 
 import java.util.concurrent.Semaphore;
 
 @RegisterClass
-public abstract class Boss extends Node3D implements HealthComponent, Runnable, Subject{
+public class Boss extends Node3D implements HealthComponent, Runnable, Subject{
 
     @Export
     @RegisterProperty
@@ -26,6 +27,7 @@ public abstract class Boss extends Node3D implements HealthComponent, Runnable, 
     public Thread t;
     public Semaphore semaphore = new Semaphore(0);
 
+    @RegisterFunction
     @Override
     public void _ready() {
         currentHealth = maxHealth;
@@ -65,6 +67,11 @@ public abstract class Boss extends Node3D implements HealthComponent, Runnable, 
         if (currentHealth <= 0){
             onDeath();
         }
+    }
+
+    @Override
+    public void onDeath() {
+
     }
 
     @Override

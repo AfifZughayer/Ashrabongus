@@ -5,7 +5,6 @@ import godot.annotation.RegisterProperty;
 import godot.api.Node;
 import godot.api.Node3D;
 import godot.core.VariantArray;
-import godot.global.GD;
 
 import java.util.ArrayList;
 import java.util.concurrent.Semaphore;

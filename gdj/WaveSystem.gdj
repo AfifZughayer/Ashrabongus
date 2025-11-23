@@ -6,7 +6,7 @@ fqName = WaveSystem
 relativeSourcePath = src/main/java/WaveSystem.java
 baseType = Node3D
 supertypes = [
-	godot.api.Node3D,
+    godot.api.Node3D,
 	java.lang.Runnable,
 	Subject,
 	godot.api.Node,
@@ -18,12 +18,12 @@ supertypes = [
 	kotlin.Any
 ]
 signals = [
-	
+    
 ]
 properties = [
-	waves
+    waves
 ]
 functions = [
-	_ready,
+    _ready,
 	start_wave
 ]

@@ -3,15 +3,10 @@ import godot.annotation.RegisterProperty;
 import godot.api.Node;
 
 @RegisterClass
-public class Attack extends Node implements AttackComponent, Observer{
+public abstract class Attack extends Node implements AttackComponent, Observer{
 
     @RegisterProperty
     public Boss boss;
-
-    @Override
-    public void attack() {
-
-    }
 
     @Override
     public void update() {

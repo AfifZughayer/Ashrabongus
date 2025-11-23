@@ -1,11 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://bhuuj3f6ourgx"]
+[gd_scene load_steps=18 format=3 uid="uid://bhuuj3f6ourgx"]
 
 [ext_resource type="PackedScene" uid="uid://ch871gf4ebxm3" path="res://scenes/player.tscn" id="1_bih7l"]
 [ext_resource type="Texture2D" uid="uid://ch1flxbcj2epx" path="res://models/city/textures/blouberg_sunrise_1_2k.hdr" id="2_movw8"]
 [ext_resource type="ArrayMesh" uid="uid://c2y7ftsr8vugh" path="res://models/city/citymesh.tres" id="3_rqxma"]
 [ext_resource type="Script" uid="uid://b6cv4sw2dyesa" path="res://gdj/Wall.gdj" id="4_oacpt"]
 [ext_resource type="PackedScene" uid="uid://beylshfolgf80" path="res://models/godzilla/Godzilla (New Glow).glb" id="6_2jj31"]
+[ext_resource type="Script" uid="uid://c5bubqca71xu" path="res://gdj/Godzilla.gdj" id="6_8uhr2"]
 [ext_resource type="Shader" uid="uid://ctnnvkueva4le" path="res://src/main/resources/textures/frensal.gdshader" id="6_drx7m"]
+[ext_resource type="Script" uid="uid://cci7odhlmjaar" path="res://gdj/GodzillaLaserAttack.gdj" id="8_8uhr2"]
+[ext_resource type="PackedScene" uid="uid://c4t8qr4e1xig0" path="res://scenes/laser.tscn" id="9_3br4m"]
+[ext_resource type="Script" uid="uid://cm81x3lu2hf6e" path="res://gdj/GodzillaJumpAttack.gdj" id="10_4lp1f"]
 
 [sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_oacpt"]
 panorama = ExtResource("2_movw8")
@@ -50,7 +54,7 @@ shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("1_bih7l")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -160.518, 97.9073, 379.815)
-speed = 20.0
+speed = 50.0
 
 [node name="Models" type="Node3D" parent="."]
 
@@ -119,8 +123,11 @@ shape = SubResource("ConcavePolygonShape3D_movw8")
 mesh = ExtResource("3_rqxma")
 skeleton = NodePath("../../..")
 
-[node name="Godzilla (New Glow)" parent="." instance=ExtResource("6_2jj31")]
+[node name="Godzilla (New Glow)" parent="." node_paths=PackedStringArray("attacks") groups=["enemy"] instance=ExtResource("6_2jj31")]
 transform = Transform3D(125, 0, 0, 0, 125, 0, 0, 0, 125, -207.15, -38.1882, -258.292)
+script = ExtResource("6_8uhr2")
+attacks = [NodePath("LaserAttack"), NodePath("JumpAttack")]
+max_health = 5000
 
 [node name="Skeleton3D" parent="Godzilla (New Glow)/Sketchfab_model/root/GLTF_SceneRootNode/root_132/GLTF_created_0" index="1"]
 bones/4/position = Vector3(-1.99151, 98.6975, -13.5749)
@@ -319,6 +326,17 @@ bones/129/rotation = Quaternion(0.935474, 0.0066557, 0.0188944, 0.352827)
 
 [node name="Object_7" parent="Godzilla (New Glow)/Sketchfab_model/root/GLTF_SceneRootNode/root_132/GLTF_created_0/Skeleton3D" index="0"]
 material_overlay = SubResource("ShaderMaterial_8uhr2")
+
+[node name="LaserAttack" type="Node" parent="Godzilla (New Glow)" node_paths=PackedStringArray("laser_pos")]
+script = ExtResource("8_8uhr2")
+laser = ExtResource("9_3br4m")
+laser_pos = NodePath("../LaserPos")
+
+[node name="JumpAttack" type="Node" parent="Godzilla (New Glow)"]
+script = ExtResource("10_4lp1f")
+
+[node name="LaserPos" type="Marker3D" parent="Godzilla (New Glow)"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.146644, 1.78542, 0.94794)
 
 [connection signal="body_entered" from="Models/City" to="Models/City" method="deal_damage"]
 [connection signal="body_entered" from="Models/City2" to="Models/City2" method="deal_damage"]

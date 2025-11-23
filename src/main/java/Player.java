@@ -53,20 +53,12 @@ public class Player extends CharacterBody3D implements ShootComponent, HealthCom
     public void _ready(){
         currentHealth = maxHealth;
         Input.setMouseMode(Input.MouseMode.CAPTURED);
-//        cam.setPosition(camPos.get(camIndex).getPosition());
-    }
-
-    @RegisterFunction
-    public void _input(InputEvent event){
-        assert event != null;
-//        if (event.isActionPressed("switchCam"))
-//            switchCam();
     }
 
     @RegisterFunction
     public void _process(double delta) {
-        keyboard();
-        //wireless();
+//      keyboard();
+        wireless();
         rot = new Vector3(10 * pitch, 1,45 * roll);
         jet.setRotationDegrees(jet.getRotationDegrees().lerp(rot, 0.025));
 
@@ -75,11 +67,7 @@ public class Player extends CharacterBody3D implements ShootComponent, HealthCom
 
     @RegisterFunction
     public void _physicsProcess(double delta){
-//        applyCentralForce(getBasis().getZ().times(throttle));
-//        applyTorque(getBasis().getY().times(-yaw * sens * getMass()));
-//        applyTorque(getBasis().getX().times(pitch * sens * getMass()));
-//        applyTorque(getBasis().getZ().times(roll * sens * getMass()));
-        setVelocity(getBasis().getZ().times(speed));
+        setVelocity(getBasis().getZ().times(speed)); // apply velocity in the forward direction
         moveAndSlide();
         jet.rotateZ((float)Math.toRadians(roll));
         rotateY(-(float)Math.toRadians(roll));
@@ -105,6 +93,7 @@ public class Player extends CharacterBody3D implements ShootComponent, HealthCom
         }
     }
 
+    // keyboard control for testing
     public void keyboard(){
         roll = Input.getAxis("left", "right");
         pitch = Input.getAxis("up", "down");
@@ -148,9 +137,4 @@ public class Player extends CharacterBody3D implements ShootComponent, HealthCom
         getTree().reloadCurrentScene();
     }
 
-//    public void switchCam(){
-//        camIndex += 1;
-//        camIndex %= camPos.size();
-//        cam.setPosition(camPos.get(camIndex).getPosition());
-//    }
 }

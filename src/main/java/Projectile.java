@@ -7,7 +7,7 @@ import godot.api.Node3D;
 import godot.core.*;
 
 @RegisterClass
-public abstract class Projectile extends Area3D {
+public abstract class Projectile extends Area3D implements DamageComponent{
 
     @Export
     @RegisterProperty
@@ -28,6 +28,7 @@ public abstract class Projectile extends Area3D {
     public float timer = 0;
 
     @RegisterFunction
+    @Override
     public void dealDamage(Node3D body) {
         if (body instanceof HealthComponent && body.isInGroup(tag)){
             ((HealthComponent) body).takeDamage(dmg);
@@ -36,6 +37,7 @@ public abstract class Projectile extends Area3D {
     }
 
     @RegisterFunction
+    @Override
     public void areaDealDamage(Area3D area){
         if (area instanceof HealthComponent && area.isInGroup(tag)){
             ((HealthComponent) area).takeDamage(dmg);
